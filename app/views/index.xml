@@ -1,0 +1,6 @@
+<Alloy>
+	<Window class="container">
+		<Label id="label" onClick="doClick">Hello, World</Label>
+		<ScrollView id="mainScroll"></ScrollView>
+	</Window>
+</Alloy>
