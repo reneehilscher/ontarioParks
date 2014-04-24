@@ -4,6 +4,7 @@ function Controller() {
     }
     function getPictures(tags) {
         var tags = $.textArea.value;
+        Titanium.App.Properties.setString("nameOfPark", tags);
         var myRequest = Ti.Network.createHTTPClient({
             onload: function(e) {
                 eval(this.responseText);
@@ -22,16 +23,12 @@ function Controller() {
                 image: allItems[i].media.m,
                 left: 10,
                 right: 10,
-                height: 150,
+                height: 100,
                 width: 300,
-                top: 1 + 180 * i
+                top: 3 + 110 * i
             });
-            newThumb.addEventListener("click", thumbClicked);
             $.main.add(newThumb);
         }
-    }
-    function thumbClicked(e) {
-        alert(e.source.index);
     }
     function openParkDetails() {
         var newWindow = Alloy.createController("park_details").getView();
@@ -48,18 +45,10 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.__alloyId0 = Ti.UI.createWindow({
-        backgroundColor: "#f2e9cc",
+        backgroundColor: "#543410",
+        title: "Search",
         id: "__alloyId0"
     });
-    $.__views.label = Ti.UI.createLabel({
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        color: "#000",
-        text: "Ontario Parks",
-        id: "label",
-        top: "10"
-    });
-    $.__views.__alloyId0.add($.__views.label);
     $.__views.textArea = Ti.UI.createTextArea({
         id: "textArea",
         borderWidth: "2",
@@ -67,29 +56,42 @@ function Controller() {
         borderRadius: "5",
         color: "#888",
         textAlign: "left",
-        value: "I am a textarea",
-        top: "60",
+        value: "Enter a Park",
+        top: "10",
         width: "150",
         height: "30",
         left: "40"
     });
     $.__views.__alloyId0.add($.__views.textArea);
     $.__views.search = Ti.UI.createButton({
+        borderWidth: 2,
+        paddingLeft: 10,
+        borderColor: "#3b6712",
+        backgroundColor: "#6bb262",
+        borderRadius: 5,
+        color: "white",
+        width: 80,
         title: "Search",
         id: "search",
-        top: "60",
+        top: "10",
         right: "40"
     });
     $.__views.__alloyId0.add($.__views.search);
-    $.__views.testing = Ti.UI.createButton({
-        title: "Test",
-        id: "testing",
+    $.__views.map = Ti.UI.createButton({
+        backgroundColor: "#6bb262",
+        borderWidth: 2,
+        borderRadius: 5,
+        color: "white",
+        borderColor: "#3b6712",
+        width: 80,
+        title: "Directions",
+        id: "map",
         bottom: "10"
     });
-    $.__views.__alloyId0.add($.__views.testing);
+    $.__views.__alloyId0.add($.__views.map);
     $.__views.main = Ti.UI.createScrollView({
         id: "main",
-        height: "300",
+        height: "350",
         left: "0",
         right: "0",
         width: "300"
@@ -104,7 +106,7 @@ function Controller() {
     _.extend($, $.__views);
     $.window1.open();
     $.search.addEventListener("click", getPictures);
-    $.testing.addEventListener("click", openParkDetails);
+    $.map.addEventListener("click", openParkDetails);
     _.extend($, exports);
 }
 

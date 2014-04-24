@@ -6,8 +6,9 @@ function jsonFlickrFeed(data) {
 }
 
 function getPictures(tags){
-	
+	//tags is whatever the user types in the text area on index.js.
 	var tags = $.textArea.value; //user inputs are the tags for the request
+	Titanium.App.Properties.setString("nameOfPark", tags);
 	//new httprequest object
 	//create teh request variable
 	var myRequest = Ti.Network.createHTTPClient({
@@ -29,22 +30,20 @@ function getPictures(tags){
 function createThumbs(allItems){
 	for(i = 0; i < allItems.length; i++){
 		var newThumb = Ti.UI.createImageView({ //creates a thumbnail for each thumb
-			image: allItems[i].media.m, left:10,right:10, height:150, width:300, top:1+i*180,
+			image: allItems[i].media.m, left:10,right:10,height:100, width:300, top:3+i*110,
 		});
-		newThumb.addEventListener ('click', thumbClicked);
+
 		$.main.add(newThumb);
 	}//end of loop
 }
 //functions!
 $.search.addEventListener('click', getPictures);
 
-function thumbClicked(e){
-	alert(e.source.index);
-};
 
-$.testing.addEventListener('click',openParkDetails);
+$.map.addEventListener('click',openParkDetails);
 //openParkDetails
 
+// var testing= Titanium.App.Properties.setString("nameOfPark", "works");
 
 function openParkDetails(e) {
     var newWindow = Alloy.createController('park_details').getView(); //creates a new window and opens it and passes the information for the clicked row

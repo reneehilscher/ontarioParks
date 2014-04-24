@@ -7,8 +7,8 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.park_images = Ti.UI.createWindow({
-        title: "Gallery",
         id: "park_images",
+        title: "Location",
         backgroundColor: "#11a4b4",
         top: "0"
     });
@@ -18,6 +18,10 @@ function Controller() {
         top: "20"
     });
     $.__views.park_images.add($.__views.park_name);
+    $.__views.images = Ti.UI.createScrollView({
+        id: "images"
+    });
+    $.__views.park_images.add($.__views.images);
     $.__views.details = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.park_images,
         id: "details"
@@ -25,7 +29,13 @@ function Controller() {
     $.__views.details && $.addTopLevelView($.__views.details);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    arguments[0];
+    var tagname = Titanium.App.Properties.getString("nameOfPark");
+    Ti.API.info("Parkname is" + tagname);
+    var maps_webview = Titanium.UI.createWebView({
+        url: "http://www.google.com/maps/place/" + escape(tagname)
+    });
+    $.park_images.add(maps_webview);
+    $.park_images.title = tagname;
     _.extend($, exports);
 }
 

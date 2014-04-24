@@ -1,14 +1,13 @@
 <Alloy>
 	<NavigationWindow id="window1">
-		<Window class="container" backgroundColor="#f2e9cc">
-			<Label id="label" top="10">Ontario Parks</Label>
+		<Window class="container" title="Search">
 			<TextArea id="textArea"
             borderWidth="2" borderColor="#bbb" borderRadius="5"
-            color="#888" textAlign="left" value="I am a textarea"
-            top="60" width="150" height="30" left="40" />
-            <Button id="search" top="60" right="40">Search</Button>
-            <Button id="testing" bottom="10">Test</Button>
-			<ScrollView id="main" height="300" left="0" right="0" width="300"></ScrollView>
+            color="#888" textAlign="left" value="Enter a Park"
+            top="10" width="150" height="30" left="40" />
+            <Button id="search" top="10" right="40">Search</Button>
+            <Button id="map" bottom="10">Directions</Button>
+			<ScrollView id="main" height="350" left="0" right="0" width="300"></ScrollView>
 		</Window>
 	</NavigationWindow>
 </Alloy>
