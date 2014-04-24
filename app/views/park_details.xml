@@ -1,4 +1,8 @@
 <Alloy>
-	<View class="container">
-	</View>
+	<NavigationWindow id="details">
+	<Window title="Gallery" id="park_images" backgroundColor="#11a4b4"  top="0">
+		<Label id="park_name" text="" top="20"></Label>
+		<!-- <Label id="website_url" top="100" color="blue" text="placeholder"></Label> -->
+	</Window>
+	</NavigationWindow>
 </Alloy>

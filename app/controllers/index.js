@@ -1,57 +1,54 @@
-function doClick(e) {
-    alert($.label.text);
+
+$.window1.open();
+
+function jsonFlickrFeed(data) {
+  createThumbs(data.items); // loop over the items
 }
-$.index.open();
 
-var jsonObject;
-var allItems;
-//new httprequest object 
-
-
-//create teh request variable
-var myRequest = Ti.Network.createHTTPClient({
+function getPictures(tags){
 	
-	onload: function(e) {
-		//if all loads, run stuff in here
-		jsonObject = JSON.parse(this.responseText);
-		Ti.API.info(jsonObject);
-		alert(jsonObject);
-		
-		// var first_item = allItems[0];
-		// alert(first_item);
-	},
-	
-	onerror: function(e) {
-		alert(e.error);
-		//if there is an error, then run stuff in here
-	},
-	timeout:5000 // give up after 5 seconds
-	
-});
+	var tags = $.textArea.value; //user inputs are the tags for the request
+	//new httprequest object
+	//create teh request variable
+	var myRequest = Ti.Network.createHTTPClient({
+		onload: function(e) {
+			// reads jsonFlickrFeed as javascript
+			eval(this.responseText);
+		},
+		onerror: function(e) {
+			alert(e.error);
+			//if there is an error, then run stuff in here
+		},
+		timeout:5000 // give up after 5 seconds
+	});
+	myRequest.open("GET", "https://api.flickr.com/services/feeds/photos_public.gne?format=json&tags="+tags);
+	myRequest.send();
+}
 
-// var tags ="high park";
-
-myRequest.open("GET", "https://api.flickr.com/services/feeds/photos_public.gne?format=json&tags=%27+high+park");
-myRequest.send();
-
-
-function createThumbs(){
-	
-	for(i = 0; i < items.length; i++){
-		var card = Ti.UI.createView({ //creates a card for each of the thumbs
-			left:68, height:150, width:200, top:20+i*180, backgroundColor:'blue'
-		});
+//create the thumbnails
+function createThumbs(allItems){
+	for(i = 0; i < allItems.length; i++){
 		var newThumb = Ti.UI.createImageView({ //creates a thumbnail for each thumb
-			image: items[i].media.m, left:100, height:150, width:200, top:1+i*180,
-			thumbCard:card //associates the image with the card created at the same time as itself
+			image: allItems[i].media.m, left:10,right:10, height:150, width:300, top:1+i*180,
 		});
 		newThumb.addEventListener ('click', thumbClicked);
-		var titleLabel = Ti.UI.createLabel({
-			text:items[i].title, bottom:0, color:"white"
-		});
-		$.mainScroll.add(card);
-		card.add(titleLabel);
-		$.mainScroll.add(newThumb);
+		$.main.add(newThumb);
 	}//end of loop
 }
 //functions!
+$.search.addEventListener('click', getPictures);
+
+function thumbClicked(e){
+	alert(e.source.index);
+};
+
+$.testing.addEventListener('click',openParkDetails);
+//openParkDetails
+
+
+function openParkDetails(e) {
+    var newWindow = Alloy.createController('park_details').getView(); //creates a new window and opens it and passes the information for the clicked row
+    $.window1.openWindow(newWindow, {animated:true});
+   //assign this to a variable and then make it equal to the detail. 
+}
+

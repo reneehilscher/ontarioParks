@@ -6,13 +6,26 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    $.__views.park_details = Ti.UI.createView({
-        id: "park_details"
+    $.__views.park_images = Ti.UI.createWindow({
+        title: "Gallery",
+        id: "park_images",
+        backgroundColor: "#11a4b4",
+        top: "0"
     });
-    $.__views.park_details && $.addTopLevelView($.__views.park_details);
+    $.__views.park_name = Ti.UI.createLabel({
+        id: "park_name",
+        text: "",
+        top: "20"
+    });
+    $.__views.park_images.add($.__views.park_name);
+    $.__views.details = Ti.UI.iOS.createNavigationWindow({
+        window: $.__views.park_images,
+        id: "details"
+    });
+    $.__views.details && $.addTopLevelView($.__views.details);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    arguments[0] || {};
+    arguments[0];
     _.extend($, exports);
 }
 
